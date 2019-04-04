@@ -32,6 +32,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/about").setViewName("static/home");
+        registry.addViewController("/about").setViewName("static/base");
     }
 }
