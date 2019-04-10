@@ -22,7 +22,7 @@ public class UserController {
         return "sign-up";
     }
 
-    @RequestMapping(value = "/student/edit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/student/{id}/assign-ht", method = RequestMethod.GET)
     public String edit(@PathVariable("id") Student student, ModelMap map) {
         map.put("student", student);
         return showForm(map);
