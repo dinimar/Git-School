@@ -1,6 +1,5 @@
 package ru.kpfu.itis.gitschool.config;
 
-import org.jtwig.spring.JtwigViewResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +10,9 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 import ru.kpfu.itis.gitschool.models.HomeTask;
 import ru.kpfu.itis.gitschool.models.Student;
 import ru.kpfu.itis.gitschool.utils.StringToEntityConverter;
@@ -25,15 +25,16 @@ public class WebConfig implements WebMvcConfigurer {
     @Qualifier("studentGenericConverter")
     private GenericConverter studentGenericConverter;
     @Autowired
-    @Qualifier("homeTaskGenericConverter")
-    private GenericConverter homeTaskGenericConverter;
+    @Qualifier("homeTaskConverter")
+    private GenericConverter homeTaskConverter;
 
 
     @Bean
     public ViewResolver viewResolver() {
-        JtwigViewResolver resolver = new JtwigViewResolver();
-        resolver.setPrefix("web:/WEB-INF/views/");
-        resolver.setSuffix(".html.twig");
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setSuffix(".jsp");
+        resolver.setViewClass(JstlView.class);
         resolver.setRedirectContextRelative(false);
         return resolver;
     }
@@ -48,12 +49,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry formatterRegistry) {
         formatterRegistry.addConverter(studentGenericConverter);
-        formatterRegistry.addConverter(homeTaskGenericConverter);
-    }
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/about").setViewName("static/base");
+        formatterRegistry.addConverter(homeTaskConverter);
     }
 
     @Bean
@@ -62,7 +58,7 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public StringToEntityConverter homeTaskGenericConverter() {
+    public StringToEntityConverter homeTaskConverter() {
         return new StringToEntityConverter(HomeTask.class);
     }
 }

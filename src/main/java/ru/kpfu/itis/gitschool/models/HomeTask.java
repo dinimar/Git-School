@@ -21,11 +21,20 @@ public class HomeTask {
     @Size
     private String type;
 
-    public HomeTask(){}
+    public HomeTask() {
+    }
 
     public HomeTask(@NotNull @Size(min = 1) String name, @NotNull @Size String type) {
         this.name = name;
         this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
