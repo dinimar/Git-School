@@ -5,10 +5,8 @@
 
 <t:base>
     <form:form modelAttribute="user" method="post">
-        <form:label path="email">Email:</form:label>
-        <form:input path="email"></form:input>
-        <form:label path="password">Password:</form:label>
-        <form:input path="password"></form:input>
-        <input type="submit">
+        <t:input id="email" label="Email:" type="text" path="email"></t:input>
+        <t:input id="password" label="Password:" type="password" path="password"></t:input>
+        <input type="submit" class="btn btn-primary" value="Nodss">
     </form:form>
 </t:base>
