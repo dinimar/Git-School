@@ -10,6 +10,7 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -43,13 +44,18 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/assets/js/");
         registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/assets/css/");
-        registry.addResourceHandler("/fonts/**").addResourceLocations("/WEB-INF/assets/fonts/");
+        registry.addResourceHandler("/img/**").addResourceLocations("/WEB-INF/assets/img/");
     }
 
     @Override
     public void addFormatters(FormatterRegistry formatterRegistry) {
         formatterRegistry.addConverter(studentGenericConverter);
         formatterRegistry.addConverter(homeTaskConverter);
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/about").setViewName("static/about");
     }
 
     @Bean
