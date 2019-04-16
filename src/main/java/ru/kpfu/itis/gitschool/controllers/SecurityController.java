@@ -2,15 +2,14 @@ package ru.kpfu.itis.gitschool.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.UriComponentsBuilder;
 import ru.kpfu.itis.gitschool.models.User;
 import ru.kpfu.itis.gitschool.services.UserService;
 
@@ -37,13 +36,12 @@ public class SecurityController {
             ModelMap map
     ) {
         if (!result.hasErrors()) {
-            try{
+            try {
                 userService.signUpUser(user);
-//                redirectAttributes.addFlashAttribute("message", "You has been registered successfully");
+                redirectAttributes.addFlashAttribute("message", "You have been registered successfully");
 //                redirectAttributes.addFlashAttribute("messageType", "success");
-                return "redirect:" + UriComponentsBuilder.fromPath("/").build();
-            }
-            catch(DuplicateKeyException ex){
+                return "redirect:" + MvcUriComponentsBuilder.fromMappingName("SC#signUp").build();
+            } catch (DuplicateKeyException ex) {
                 result.rejectValue("email", "entry.duplicate", "There is account with such email already.");
             }
         }
