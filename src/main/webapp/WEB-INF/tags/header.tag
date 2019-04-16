@@ -6,7 +6,9 @@
         <img src="<c:url value="/img/index.png"/>" width="30" height="30" class="d-inline-block align-top" alt="GitSchool">
         Git School
     </a>
-    <form class="form-inline">
-        <button class="btn btn-outline-success" type="button">Sign In</button>
+    <form class="form-inline" action="<c:url value="/sign-up" />" method="GET">
+        <button class="btn btn-outline-success" type="submit">
+            Sign Up
+        </button>
     </form>
 </nav>

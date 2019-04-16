@@ -41,6 +41,7 @@
 <body>
 <t:header></t:header>
 <div class="container">
+    <jsp:doBody/>
 </div>
 </body>
 </html>
