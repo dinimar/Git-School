@@ -2,6 +2,7 @@ package ru.kpfu.itis.gitschool.config;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -20,6 +21,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
+@ComponentScan({"ru.kpfu.itis.gitschool.services", "ru.kpfu.itis.gitschool.utils"})
 @EnableJpaRepositories("ru.kpfu.itis.gitschool.repositories")
 @PropertySource("classpath:app.properties")
 public class RootConfig {
