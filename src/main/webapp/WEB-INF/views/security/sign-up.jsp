@@ -7,6 +7,6 @@
     <form:form modelAttribute="user" method="post">
         <t:input id="email" label="Email:" type="text" path="email"></t:input>
         <t:input id="password" label="Password:" type="password" path="password"></t:input>
-        <input type="submit" class="btn btn-primary" value="Nodss">
+        <input type="submit" class="btn btn-primary" value="Submit">
     </form:form>
 </t:base>
