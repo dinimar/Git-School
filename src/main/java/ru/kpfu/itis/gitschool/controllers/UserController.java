@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
-import ru.kpfu.itis.gitschool.models.Student;
-import ru.kpfu.itis.gitschool.models.User;
-import ru.kpfu.itis.gitschool.repositories.HomeTaskRepository;
-import ru.kpfu.itis.gitschool.repositories.StudentRepository;
+//import ru.kpfu.itis.gitschool.models.Student;
+//import ru.kpfu.itis.gitschool.models.User;
+//import ru.kpfu.itis.gitschool.repositories.HomeTaskRepository;
+//import ru.kpfu.itis.gitschool.repositories.StudentRepository;
 
 import javax.validation.Valid;
 

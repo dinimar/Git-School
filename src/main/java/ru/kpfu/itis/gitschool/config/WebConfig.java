@@ -14,20 +14,20 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-import ru.kpfu.itis.gitschool.models.HomeTask;
-import ru.kpfu.itis.gitschool.models.Student;
+//import ru.kpfu.itis.gitschool.models.HomeTask;
+//import ru.kpfu.itis.gitschool.models.Student;
 import ru.kpfu.itis.gitschool.utils.StringToEntityConverter;
 
 @Configuration
 @ComponentScan("ru.kpfu.itis.gitschool.controllers")
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
-    @Autowired
-    @Qualifier("studentGenericConverter")
-    private GenericConverter studentGenericConverter;
-    @Autowired
-    @Qualifier("homeTaskConverter")
-    private GenericConverter homeTaskConverter;
+//    @Autowired
+//    @Qualifier("studentGenericConverter")
+//    private GenericConverter studentGenericConverter;
+//    @Autowired
+//    @Qualifier("homeTaskConverter")
+//    private GenericConverter homeTaskConverter;
 
 
     @Bean
@@ -48,24 +48,24 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/img/**").addResourceLocations("/WEB-INF/assets/img/");
     }
 
-    @Override
-    public void addFormatters(FormatterRegistry formatterRegistry) {
-        formatterRegistry.addConverter(studentGenericConverter);
-        formatterRegistry.addConverter(homeTaskConverter);
-    }
+//    @Override
+//    public void addFormatters(FormatterRegistry formatterRegistry) {
+//        formatterRegistry.addConverter(studentGenericConverter);
+//        formatterRegistry.addConverter(homeTaskConverter);
+//    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/about").setViewName("static/about");
     }
 
-    @Bean
-    public StringToEntityConverter studentGenericConverter() {
-        return new StringToEntityConverter(Student.class);
-    }
-
-    @Bean
-    public StringToEntityConverter homeTaskConverter() {
-        return new StringToEntityConverter(HomeTask.class);
-    }
+//    @Bean
+//    public StringToEntityConverter studentGenericConverter() {
+//        return new StringToEntityConverter(Student.class);
+//    }
+//
+//    @Bean
+//    public StringToEntityConverter homeTaskConverter() {
+//        return new StringToEntityConverter(HomeTask.class);
+//    }
 }

@@ -1,18 +1,20 @@
 package ru.kpfu.itis.gitschool.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.security.core.CredentialsContainer;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements CredentialsContainer, UserDetails {
     @Id
     @GeneratedValue
     private int id;
@@ -29,6 +31,39 @@ public class User {
     private String firstName;
     @NotBlank
     private String lastName;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @JoinTable(
+            name = "users_users_roles",
+            joinColumns = @JoinColumn(name = "users"),
+            inverseJoinColumns = @JoinColumn(name = "users_roles")
+    )
+    private Set<UserAuthority> authorities = new HashSet<>();
+
+    @Override
+    public void eraseCredentials() {
+        this.password = null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
     public int getId() {
         return id;
@@ -68,6 +103,24 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void addAuthority(UserAuthority authority) {
+        this.authorities.add(authority);
+    }
+
+    @Override
+    public Set<UserAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<UserAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
     }
 
     @Override
