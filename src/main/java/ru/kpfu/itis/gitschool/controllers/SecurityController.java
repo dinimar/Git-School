@@ -9,9 +9,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.kpfu.itis.gitschool.models.User;
+import ru.kpfu.itis.gitschool.models.forms.SignInForm;
 import ru.kpfu.itis.gitschool.services.UserService;
 
 import javax.validation.Valid;
@@ -21,16 +23,23 @@ public class SecurityController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping(value = "/sign-in", method = RequestMethod.GET)
+    @PreAuthorize("isAnonymous()")
+    public String getSignInPage(@RequestParam(required = false) String error, @ModelAttribute("signInForm") SignInForm signInForm, BindingResult result, ModelMap map) {
+        map.put("error", error);
+        return showSignInForm(map);
+    }
+
     @RequestMapping(value = "/sign-up", method = RequestMethod.GET)
     @PreAuthorize("isAnonymous()")
-    public String signUp(ModelMap map) {
+    public String getSignUpPage(ModelMap map) {
         map.put("user", new User());
         return showSignUpForm(map);
     }
 
     @RequestMapping(value = "/sign-up", method = RequestMethod.POST)
     @PreAuthorize("isAnonymous()")
-    public String registerHandler(
+    public String signUpUser(
             RedirectAttributes redirectAttributes,
             @ModelAttribute("user") @Valid User user,
             BindingResult result,
@@ -40,8 +49,7 @@ public class SecurityController {
             try {
                 userService.signUpUser(user);
                 redirectAttributes.addFlashAttribute("message", "You have been registered successfully");
-//                redirectAttributes.addFlashAttribute("messageType", "success");
-                return "redirect:" + MvcUriComponentsBuilder.fromMappingName("SC#signUp").build();
+                return "redirect:" + MvcUriComponentsBuilder.fromMappingName("SC#getSignUpPage").build();
             } catch (DuplicateKeyException ex) {
                 result.rejectValue("email", "entry.duplicate", "There is account with such email already.");
             }
@@ -52,4 +60,5 @@ public class SecurityController {
     protected String showSignUpForm(ModelMap map) {
         return "security/sign-up";
     }
+    protected String showSignInForm(ModelMap map) {return "security/sign-in";}
 }

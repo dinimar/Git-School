@@ -14,7 +14,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User implements CredentialsContainer, UserDetails {
+public class User
+//        implements CredentialsContainer, UserDetails
+{
     @Id
     @GeneratedValue
     private int id;
@@ -43,30 +45,30 @@ public class User implements CredentialsContainer, UserDetails {
     @NotBlank
     private String role;
 
-    @Override
-    public void eraseCredentials() {
-        this.password = null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+//    @Override
+//    public void eraseCredentials() {
+//        this.password = null;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isEnabled() {
+//        return true;
+//    }
 
     public int getId() {
         return id;
@@ -120,7 +122,6 @@ public class User implements CredentialsContainer, UserDetails {
         this.authorities.add(authority);
     }
 
-    @Override
     public Set<UserAuthority> getAuthorities() {
         return authorities;
     }
@@ -129,10 +130,10 @@ public class User implements CredentialsContainer, UserDetails {
         this.authorities = authorities;
     }
 
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
+//    @Override
+//    public String getUsername() {
+//        return this.email;
+//    }
 
     @Override
     public boolean equals(Object o) {
