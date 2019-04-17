@@ -40,6 +40,9 @@ public class User implements CredentialsContainer, UserDetails {
     )
     private Set<UserAuthority> authorities = new HashSet<>();
 
+    @NotBlank
+    private String role;
+
     @Override
     public void eraseCredentials() {
         this.password = null;
@@ -103,6 +106,14 @@ public class User implements CredentialsContainer, UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void addAuthority(UserAuthority authority) {

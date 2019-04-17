@@ -2,6 +2,7 @@ package ru.kpfu.itis.gitschool.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -21,14 +22,14 @@ public class SecurityController {
     private UserService userService;
 
     @RequestMapping(value = "/sign-up", method = RequestMethod.GET)
-//    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("isAnonymous()")
     public String signUp(ModelMap map) {
         map.put("user", new User());
         return showSignUpForm(map);
     }
 
     @RequestMapping(value = "/sign-up", method = RequestMethod.POST)
-//    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("isAnonymous()")
     public String registerHandler(
             RedirectAttributes redirectAttributes,
             @ModelAttribute("user") @Valid User user,

@@ -23,7 +23,7 @@ public class UserService {
         if (userRepo.findByEmail(user.getEmail()) != null) {
             throw new DuplicateKeyException("Duplicate key - email field");
         }
-        user.addAuthority(userAuthorityRepo.findByAuthority("ROLE_TEACHER"));
+        user.addAuthority(userAuthorityRepo.findByAuthority(user.getRole()));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
     }

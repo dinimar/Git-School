@@ -14,6 +14,23 @@
         <t:input id="lastName" label="Last name:" type="text" path="lastName"></t:input>
         <t:input id="email" label="Email:" type="text" path="email"></t:input>
         <t:input id="password" label="Password:" type="password" path="password"></t:input>
-        <input type="submit" class="btn btn-primary" value="Submit">
+
+        <label>As:</label>
+
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="role" id="role-student" value="ROLE_STUDENT">
+                <label class="form-check-label" for="role-student">Student</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="role" id="role-teacher" value="ROLE_TEACHER">
+                <label class="form-check-label" for="role-teacher">Teacher</label>
+            </div>
+        </div>
+
+        <div>
+            <input type="submit" class="btn btn-primary" value="Submit">
+        </div>
     </form:form>
 </t:base>
