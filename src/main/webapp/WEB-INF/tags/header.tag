@@ -22,7 +22,7 @@
     <security:authentication property="authorities" var="roles"/>
     <c:forEach var="role" items="${roles}" varStatus="authoritiesLoop">
         <c:if test="${role == 'ROLE_TEACHER'}">
-            <a href="<c:url value="/assign-ht"/>" class="btn btn-success mr-2">
+            <a href="<c:url value="/hometask/assign"/>" class="btn btn-success mr-2">
                 Assign home task
             </a>
         </c:if>
@@ -31,7 +31,7 @@
     <security:authentication property="authorities" var="roles"/>
     <c:forEach var="role" items="${roles}" varStatus="authoritiesLoop">
         <c:if test="${role == 'ROLE_STUDENT'}">
-            <a href="<c:url value="/submit-ht"/>" class="btn btn-success mr-2">
+            <a href="<c:url value="/hometask/submit"/>" class="btn btn-success mr-2">
                 Submit home task
             </a>
         </c:if>
