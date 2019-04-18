@@ -1,6 +1,5 @@
 package ru.kpfu.itis.gitschool.models;
 
-import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -14,9 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User
-//        implements CredentialsContainer, UserDetails
-{
+public class User implements UserDetails{
     @Id
     @GeneratedValue
     private int id;
@@ -44,31 +41,6 @@ public class User
 
     @NotBlank
     private String role;
-
-//    @Override
-//    public void eraseCredentials() {
-//        this.password = null;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return true;
-//    }
 
     public int getId() {
         return id;
@@ -130,10 +102,30 @@ public class User
         this.authorities = authorities;
     }
 
-//    @Override
-//    public String getUsername() {
-//        return this.email;
-//    }
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
     @Override
     public boolean equals(Object o) {

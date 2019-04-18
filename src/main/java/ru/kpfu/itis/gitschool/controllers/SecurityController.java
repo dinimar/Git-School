@@ -16,6 +16,7 @@ import ru.kpfu.itis.gitschool.models.User;
 import ru.kpfu.itis.gitschool.models.forms.SignInForm;
 import ru.kpfu.itis.gitschool.services.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -55,6 +56,12 @@ public class SecurityController {
             }
         }
         return showSignUpForm(map);
+    }
+
+    @RequestMapping("/profile")
+    @PreAuthorize("isAuthenticated()")
+    public String profile(HttpServletRequest request) {
+        return "security/profile";
     }
 
     protected String showSignUpForm(ModelMap map) {

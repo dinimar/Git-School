@@ -3,6 +3,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <t:base>
     <c:if test="${message != null}">
         <div class="alert alert-success" role="alert">
