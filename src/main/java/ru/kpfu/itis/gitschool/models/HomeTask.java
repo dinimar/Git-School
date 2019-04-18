@@ -1,5 +1,7 @@
 package ru.kpfu.itis.gitschool.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
@@ -17,6 +19,7 @@ public class HomeTask {
 
     @NotNull
     @Future
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date deadline;
 
     @NotNull

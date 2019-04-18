@@ -72,6 +72,14 @@ public class User implements UserDetails {
         this.submittedHomeTasks = submittedHomeTasks;
     }
 
+    public void assignHomeTask(HomeTask homeTask) {
+        this.assignedHomeTasks.add(homeTask);
+    }
+
+    public void submitHomeTask(HomeTask homeTask) {
+        this.submittedHomeTasks.add(homeTask);
+    }
+
     public int getId() {
         return id;
     }
