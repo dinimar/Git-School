@@ -14,11 +14,11 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.kpfu.itis.gitschool.models.HomeTask;
 import ru.kpfu.itis.gitschool.models.User;
-import ru.kpfu.itis.gitschool.repositories.HomeTaskRepository;
 import ru.kpfu.itis.gitschool.services.HomeTaskService;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/hometask")
@@ -41,7 +41,7 @@ public class HomeTaskController {
                                  BindingResult result,
                                  ModelMap map) {
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) principal;
-        User signedInUser = (User)token.getPrincipal();
+        User signedInUser = (User) token.getPrincipal();
 
         if (!result.hasErrors()) {
             try {
@@ -56,5 +56,14 @@ public class HomeTaskController {
         }
 
         return "hometasks/assign";
+    }
+
+    @RequestMapping(value = "/list")
+    @PreAuthorize("isAuthenticated()")
+    public String shoeHomeTaskList(ModelMap map) {
+        List<HomeTask> homeTasks = homeTaskService.getAll();
+        map.put("hometasks", homeTasks);
+
+        return "hometasks/list";
     }
 }
