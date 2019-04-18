@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
@@ -25,6 +26,13 @@ import java.util.List;
 public class HomeTaskController {
     @Autowired
     private HomeTaskService homeTaskService;
+
+    @RequestMapping(value = "/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String showHometask(@PathVariable("id") HomeTask homeTask, ModelMap map) {
+        map.put("hometask", homeTask);
+        return "hometasks/info";
+    }
 
     @RequestMapping(value = "/assign", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_TEACHER')")

@@ -18,6 +18,9 @@
         </a>
     </security:authorize>
 
+    <security:authorize access="isAuthenticated()">
+        <a class="btn btn-info mr-2" href="<c:url value="/hometask/list"/>">HT List</a>
+    </security:authorize>
 
     <security:authentication property="authorities" var="roles"/>
     <c:forEach var="role" items="${roles}" varStatus="authoritiesLoop">

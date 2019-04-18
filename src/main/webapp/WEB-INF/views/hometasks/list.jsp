@@ -6,7 +6,7 @@
 <t:base >
     <div class="list-group">
     <c:forEach var="ht" items="${hometasks}" >
-            <a href="#" class="list-group-item list-group-item-action">
+            <a href="<c:url value="/hometask/${ht.id}" />" class="list-group-item list-group-item-action">
                 ${ht.deadline}
             </a>
     </c:forEach>

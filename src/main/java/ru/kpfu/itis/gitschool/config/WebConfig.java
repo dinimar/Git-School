@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import ru.kpfu.itis.gitschool.models.HomeTask;
 import ru.kpfu.itis.gitschool.models.UserAuthority;
 import ru.kpfu.itis.gitschool.utils.StringToEntityConverter;
 
@@ -21,9 +22,9 @@ import ru.kpfu.itis.gitschool.utils.StringToEntityConverter;
 @ComponentScan("ru.kpfu.itis.gitschool.controllers")
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
-//    @Autowired
-//    @Qualifier("userAuthorityConverter")
-//    private GenericConverter userAuthorityConverter;
+    @Autowired
+    @Qualifier("homeTaskConverter")
+    private GenericConverter homeTaskConverter;
 
 
     @Bean
@@ -44,18 +45,18 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/img/**").addResourceLocations("/WEB-INF/assets/img/");
     }
 
-//    @Override
-//    public void addFormatters(FormatterRegistry formatterRegistry) {
-//        formatterRegistry.addConverter(userAuthorityConverter);
-//    }
+    @Override
+    public void addFormatters(FormatterRegistry formatterRegistry) {
+        formatterRegistry.addConverter(homeTaskConverter);
+    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/about").setViewName("static/about");
     }
 
-//    @Bean
-//    public StringToEntityConverter userAuthorityConverter() {
-//        return new StringToEntityConverter(UserAuthority.class);
-//    }
+    @Bean
+    public StringToEntityConverter homeTaskConverter() {
+        return new StringToEntityConverter(HomeTask.class);
+    }
 }
