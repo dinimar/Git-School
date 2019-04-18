@@ -14,8 +14,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-//import ru.kpfu.itis.gitschool.models.HomeTask;
-//import ru.kpfu.itis.gitschool.models.Student;
+import ru.kpfu.itis.gitschool.models.UserAuthority;
 import ru.kpfu.itis.gitschool.utils.StringToEntityConverter;
 
 @Configuration
@@ -23,11 +22,8 @@ import ru.kpfu.itis.gitschool.utils.StringToEntityConverter;
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 //    @Autowired
-//    @Qualifier("studentGenericConverter")
-//    private GenericConverter studentGenericConverter;
-//    @Autowired
-//    @Qualifier("homeTaskConverter")
-//    private GenericConverter homeTaskConverter;
+//    @Qualifier("userAuthorityConverter")
+//    private GenericConverter userAuthorityConverter;
 
 
     @Bean
@@ -50,8 +46,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 //    @Override
 //    public void addFormatters(FormatterRegistry formatterRegistry) {
-//        formatterRegistry.addConverter(studentGenericConverter);
-//        formatterRegistry.addConverter(homeTaskConverter);
+//        formatterRegistry.addConverter(userAuthorityConverter);
 //    }
 
     @Override
@@ -60,12 +55,7 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
 //    @Bean
-//    public StringToEntityConverter studentGenericConverter() {
-//        return new StringToEntityConverter(Student.class);
-//    }
-//
-//    @Bean
-//    public StringToEntityConverter homeTaskConverter() {
-//        return new StringToEntityConverter(HomeTask.class);
+//    public StringToEntityConverter userAuthorityConverter() {
+//        return new StringToEntityConverter(UserAuthority.class);
 //    }
 }

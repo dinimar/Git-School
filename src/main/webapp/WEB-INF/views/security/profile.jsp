@@ -18,8 +18,8 @@
         <dd>
                 <%-- Authorities or principal.authorities - see documentation --%>
             <security:authentication property="authorities" var="roles"/>
-            <c:forEach var="authority" items="${roles}" varStatus="authoritiesLoop">
-                ${authority}<c:if test="${!authoritiesLoop.last}">, </c:if>
+            <c:forEach var="role" items="${roles}" varStatus="authoritiesLoop">
+                ${role}<c:if test="${!authoritiesLoop.last}">, </c:if>
             </c:forEach>
         </dd>
     </dl>
