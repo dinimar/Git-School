@@ -7,13 +7,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
-public class User implements UserDetails{
+public class User implements UserDetails {
     @Id
     @GeneratedValue
     private int id;
@@ -39,8 +37,40 @@ public class User implements UserDetails{
     )
     private Set<UserAuthority> authorities = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @JoinTable(
+            name = "users_as_home_tasks",
+            joinColumns = @JoinColumn(name = "users"),
+            inverseJoinColumns = @JoinColumn(name = "home_tasks")
+    )
+    private List<HomeTask> assignedHomeTasks = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @JoinTable(
+            name = "users_sub_home_tasks",
+            joinColumns = @JoinColumn(name = "users"),
+            inverseJoinColumns = @JoinColumn(name = "home_tasks")
+    )
+    private List<HomeTask> submittedHomeTasks = new ArrayList<>();
+
     @NotBlank
     private String role;
+
+    public List<HomeTask> getAssignedHomeTasks() {
+        return assignedHomeTasks;
+    }
+
+    public void setAssignedHomeTasks(List<HomeTask> assignedHomeTasks) {
+        this.assignedHomeTasks = assignedHomeTasks;
+    }
+
+    public List<HomeTask> getSubmittedHomeTasks() {
+        return submittedHomeTasks;
+    }
+
+    public void setSubmittedHomeTasks(List<HomeTask> submittedHomeTasks) {
+        this.submittedHomeTasks = submittedHomeTasks;
+    }
 
     public int getId() {
         return id;
