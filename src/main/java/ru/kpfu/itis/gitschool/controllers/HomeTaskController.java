@@ -48,8 +48,7 @@ public class HomeTaskController {
                                  @ModelAttribute("hometask") @Valid HomeTask homeTask,
                                  BindingResult result,
                                  ModelMap map) {
-        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) principal;
-        User signedInUser = (User) token.getPrincipal();
+        User signedInUser = getUserFromPrincipal(principal);
 
         if (!result.hasErrors()) {
             try {
@@ -66,6 +65,38 @@ public class HomeTaskController {
         return "hometasks/assign";
     }
 
+    @RequestMapping(value = "/submit", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_STUDENT')")
+    public String getHomeTaskSubmittingPage(ModelMap map, Principal principal) {
+        map.put("user", getUserFromPrincipal(principal));
+        map.put("options", homeTaskService.getAll());
+        return "hometasks/submit";
+    }
+
+//    @RequestMapping(value = "/student", method = RequestMethod.POST)
+//    @PreAuthorize("hasRole('ROLE_STUDENT')")
+//    public String submitHomeTask(Principal principal,
+//                                 RedirectAttributes redirectAttributes,
+//                                 @ModelAttribute("hometask") @Valid HomeTask homeTask,
+//                                 BindingResult result,
+//                                 ModelMap map) {
+//        User signedInUser = getUserFromPrincipal(principal);
+//
+//        if (!result.hasErrors()) {
+//            try {
+//                homeTaskService.submitHomeTask(signedInUser, homeTask);
+//                redirectAttributes.addFlashAttribute("message", "Home task is submitted");
+//                return "redirect:" + MvcUriComponentsBuilder.fromMappingName("HTC#getHomeTaskSubmittingPage").build();
+//            } catch (DuplicateKeyException ex) {
+//                result.rejectValue("date", "entry.duplicate", "Two homeworks on one date are not permitted.");
+//            }
+//        } else {
+//            map.put("error", "Use only future dates!");
+//        }
+//
+//        return "hometasks/submit";
+//    }
+
     @RequestMapping(value = "/list")
     @PreAuthorize("isAuthenticated()")
     public String shoeHomeTaskList(ModelMap map) {
@@ -73,5 +104,12 @@ public class HomeTaskController {
         map.put("hometasks", homeTasks);
 
         return "hometasks/list";
+    }
+
+    private User getUserFromPrincipal(Principal principal) {
+        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) principal;
+        User signedInUser = (User) token.getPrincipal();
+
+        return signedInUser;
     }
 }

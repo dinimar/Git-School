@@ -24,6 +24,11 @@ public class HomeTaskService {
         userRepo.save(user);
     }
 
+    public void submitHomeTask(User user, HomeTask homeTask) {
+        user.submitHomeTask(homeTask);
+        userRepo.save(user);
+    }
+
     public List<HomeTask> getAll() {
         Iterator<HomeTask> allHomeTasks = homeTaskRepo.findAll().iterator();
         List<HomeTask> list = new ArrayList<>();
