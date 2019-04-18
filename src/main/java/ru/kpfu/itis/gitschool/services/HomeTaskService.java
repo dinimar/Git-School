@@ -24,8 +24,8 @@ public class HomeTaskService {
         userRepo.save(user);
     }
 
-    public void submitHomeTask(User user, HomeTask homeTask) {
-        user.submitHomeTask(homeTask);
+    public void submitHomeTask(User user, List<HomeTask> homeTasks) {
+        user.setSubmittedHomeTasks(homeTasks);
         userRepo.save(user);
     }
 

@@ -73,29 +73,16 @@ public class HomeTaskController {
         return "hometasks/submit";
     }
 
-//    @RequestMapping(value = "/student", method = RequestMethod.POST)
-//    @PreAuthorize("hasRole('ROLE_STUDENT')")
-//    public String submitHomeTask(Principal principal,
-//                                 RedirectAttributes redirectAttributes,
-//                                 @ModelAttribute("hometask") @Valid HomeTask homeTask,
-//                                 BindingResult result,
-//                                 ModelMap map) {
-//        User signedInUser = getUserFromPrincipal(principal);
-//
-//        if (!result.hasErrors()) {
-//            try {
-//                homeTaskService.submitHomeTask(signedInUser, homeTask);
-//                redirectAttributes.addFlashAttribute("message", "Home task is submitted");
-//                return "redirect:" + MvcUriComponentsBuilder.fromMappingName("HTC#getHomeTaskSubmittingPage").build();
-//            } catch (DuplicateKeyException ex) {
-//                result.rejectValue("date", "entry.duplicate", "Two homeworks on one date are not permitted.");
-//            }
-//        } else {
-//            map.put("error", "Use only future dates!");
-//        }
-//
-//        return "hometasks/submit";
-//    }
+    @RequestMapping(value = "/submit", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_STUDENT')")
+    public String submitHomeTask(Principal principal,
+                                 RedirectAttributes redirectAttributes,
+                                 ModelMap map,
+                                 User user) {
+        homeTaskService.submitHomeTask(getUserFromPrincipal(principal), user.getSubmittedHomeTasks());
+        redirectAttributes.addFlashAttribute("message", "Home task is submitted");
+        return "redirect:" + MvcUriComponentsBuilder.fromMappingName("HTC#getHomeTaskSubmittingPage").build();
+    }
 
     @RequestMapping(value = "/list")
     @PreAuthorize("isAuthenticated()")

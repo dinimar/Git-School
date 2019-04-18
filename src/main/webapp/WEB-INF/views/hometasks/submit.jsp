@@ -5,6 +5,11 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <t:base>
+    <c:if test="${message != null}">
+        <div class="alert alert-success" role="alert">
+                ${message}
+        </div>
+    </c:if>
     <h3>Submit your hometask. It's easy</h3>
     <form:form modelAttribute="user" method="post">
         <div>
