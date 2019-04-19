@@ -93,8 +93,9 @@ public class HomeTaskController {
 
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_TEACHER')")
-    public String deleteHomeTask(@PathVariable("id") HomeTask homeTask, ModelMap map) {
+    public String deleteHomeTask(@PathVariable("id") int id, HomeTask homeTask, ModelMap map) {
         homeTaskService.updateHomeTask(homeTask);
+
         return "redirect:" + MvcUriComponentsBuilder.fromMappingName("HTC#shoeHomeTaskList").build();
     }
 
