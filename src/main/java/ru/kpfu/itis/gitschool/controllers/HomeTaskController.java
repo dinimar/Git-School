@@ -101,10 +101,10 @@ public class HomeTaskController {
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     public String deleteHomeTask(@PathVariable("id") HomeTask homeTask, Principal principal, ModelMap map) {
-        homeTaskService.deleteHomeTask(homeTask);
+        homeTaskService.deleteHomeTask(getUserFromPrincipal(principal), homeTask);
 
         return "redirect:" + MvcUriComponentsBuilder.fromMappingName("HTC#shoeHomeTaskList").build();
-    }
+
 
     @RequestMapping(value = "/list")
     @PreAuthorize("isAuthenticated()")
