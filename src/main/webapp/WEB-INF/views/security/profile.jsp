@@ -23,4 +23,10 @@
             </c:forEach>
         </dd>
     </dl>
+
+    <form method="post" action="<c:url value="/user/git-update" />">
+        <label>GitHub nickname:</label>
+        <input name="nickname" type="text">
+        <input type="submit" value="Update name via GitHub">
+    </form>
 </t:base>
