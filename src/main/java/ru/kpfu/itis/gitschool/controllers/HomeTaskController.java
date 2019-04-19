@@ -104,7 +104,7 @@ public class HomeTaskController {
         homeTaskService.deleteHomeTask(getUserFromPrincipal(principal), homeTask);
 
         return "redirect:" + MvcUriComponentsBuilder.fromMappingName("HTC#shoeHomeTaskList").build();
-
+    }
 
     @RequestMapping(value = "/list")
     @PreAuthorize("isAuthenticated()")
