@@ -84,6 +84,28 @@ public class HomeTaskController {
         return "redirect:" + MvcUriComponentsBuilder.fromMappingName("HTC#getHomeTaskSubmittingPage").build();
     }
 
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public String getDeletingHomeTaskPage(@PathVariable("id") HomeTask homeTask, ModelMap map) {
+        map.put("hometask", homeTask);
+        return "hometasks/assign";
+    }
+
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public String deleteHomeTask(@PathVariable("id") HomeTask homeTask, ModelMap map) {
+        homeTaskService.updateHomeTask(homeTask);
+        return "redirect:" + MvcUriComponentsBuilder.fromMappingName("HTC#shoeHomeTaskList").build();
+    }
+
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public String deleteHomeTask(@PathVariable("id") HomeTask homeTask, Principal principal, ModelMap map) {
+        homeTaskService.deleteHomeTask(homeTask);
+
+        return "redirect:" + MvcUriComponentsBuilder.fromMappingName("HTC#shoeHomeTaskList").build();
+    }
+
     @RequestMapping(value = "/list")
     @PreAuthorize("isAuthenticated()")
     public String shoeHomeTaskList(ModelMap map) {

@@ -39,4 +39,16 @@ public class HomeTaskService {
 
         return list;
     }
+
+    public void updateHomeTask(HomeTask homeTask) {
+        HomeTask foundHT = homeTaskRepo.findById(homeTask.getId()).get();
+        foundHT.setDeadline(homeTask.getDeadline());
+        foundHT.setDescription(homeTask.getDescription());
+
+        homeTaskRepo.save(homeTask);
+    }
+
+    public void deleteHomeTask(HomeTask homeTask) {
+        homeTaskRepo.deleteById(homeTask.getId());
+    }
 }

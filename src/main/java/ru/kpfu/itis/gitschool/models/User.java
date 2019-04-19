@@ -37,7 +37,7 @@ public class User implements UserDetails {
     )
     private Set<UserAuthority> authorities = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_as_home_tasks",
             joinColumns = @JoinColumn(name = "users"),
@@ -45,7 +45,7 @@ public class User implements UserDetails {
     )
     private List<HomeTask> assignedHomeTasks = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_sub_home_tasks",
             joinColumns = @JoinColumn(name = "users"),
