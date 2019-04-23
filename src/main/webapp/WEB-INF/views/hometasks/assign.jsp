@@ -17,7 +17,7 @@
             <label for="description">Description:</label>
             <form:textarea cssClass="form-control" id="description" path="description"></form:textarea>
         </div>
-
+        <input type="hidden" name="csrf-token" value="${token}">
         <div>
             <input type="submit" class="btn btn-primary" value="Submit">
         </div>

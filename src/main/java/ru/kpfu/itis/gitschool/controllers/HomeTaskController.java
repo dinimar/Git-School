@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.kpfu.itis.gitschool.exceptions.NotFoundException;
 import ru.kpfu.itis.gitschool.models.HomeTask;
 import ru.kpfu.itis.gitschool.models.User;
 import ru.kpfu.itis.gitschool.services.HomeTaskService;
+import ru.kpfu.itis.gitschool.services.SecureTokenService;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -26,6 +28,8 @@ import java.util.List;
 public class HomeTaskController {
     @Autowired
     private HomeTaskService homeTaskService;
+    @Autowired
+    private SecureTokenService tokenService;
 
     @RequestMapping(value = "/{id}")
     @PreAuthorize("isAuthenticated()")
@@ -38,6 +42,7 @@ public class HomeTaskController {
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     public String getHomeTaskAssigningPage(ModelMap map) {
         map.put("hometask", new HomeTask());
+        map.put("token", tokenService.getToken());
         return "hometasks/assign";
     }
 
