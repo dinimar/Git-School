@@ -1,6 +1,5 @@
 package ru.kpfu.itis.gitschool.controllers;
 
-import com.google.gson.Gson;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,7 +17,7 @@ public class UserController {
     @RequestMapping(value = "/git-update", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
     public String updateName(@RequestBody String body, ModelMap map) {
-        Gson gson = new Gson();
+//        Gson gson = new Gson();
         try {
             String response = APIHelper.myGetRequest("https://api.github.com");
         } catch (IOException ex) {
